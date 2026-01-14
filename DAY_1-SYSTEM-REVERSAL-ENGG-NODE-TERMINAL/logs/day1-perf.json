@@ -1,0 +1,10 @@
+{
+  "buffer_read": {
+    "execution_time_ms": 23.04,
+    "memory_used_mb": 50.48
+  },
+  "stream_read": {
+    "execution_time_ms": 25.52,
+    "memory_used_mb": 26.73
+  }
+}
