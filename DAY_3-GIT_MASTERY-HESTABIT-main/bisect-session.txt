@@ -1,0 +1,9 @@
+git bisect start
+# status: waiting for both good and bad commits
+# bad: [ce87bc28fb9f5ca47e9f6d4e57e03df67601a7f2] chore: ignore generated output files
+git bisect bad ce87bc28fb9f5ca47e9f6d4e57e03df67601a7f2
+# status: waiting for good commit(s), bad commit known
+# good: [ce87bc28fb9f5ca47e9f6d4e57e03df67601a7f2] chore: ignore generated output files
+git bisect good ce87bc28fb9f5ca47e9f6d4e57e03df67601a7f2
+# bad: [ce87bc28fb9f5ca47e9f6d4e57e03df67601a7f2] chore: ignore generated output files
+git bisect bad ce87bc28fb9f5ca47e9f6d4e57e03df67601a7f2
