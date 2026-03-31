@@ -23,3 +23,4 @@ for (let i = 0; i < WORD_COUNT; i++) {
 fs.writeFileSync(OUTPUT_FILE, words.join(" "), "utf8");
 
 console.log(`✅ corpus.txt generated with ${WORD_COUNT} words`);
+
