@@ -1,0 +1,178 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #dceeff;
+}
+
+/* NAVBAR */
+.navbar {
+  background: #111827;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.nav-menu {
+  display: none;
+  background: #111827;
+  color: white;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-menu li {
+  padding: 15px 20px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+/* MAIN */
+main {
+  max-width: 750px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* CARD */
+.card {
+  background: #111827;
+  color: white;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.card h2 {
+  margin: 0;
+  padding: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.hint-text {
+  font-size: 13px;
+  font-weight: normal;
+  opacity: 0.7;
+  margin-left: 10px;
+}
+
+/* FAQ */
+.faq {
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.question {
+  width: 100%;
+  background: none;
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: left;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.question::after {
+  content: "›";
+  transition: transform 0.3s ease;
+}
+
+.answer {
+  background: white;
+  color: #333;
+  padding: 0 20px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+
+.faq.active .answer {
+  padding: 20px;
+}
+
+.faq.active .question::after {
+  transform: rotate(90deg);
+}
+
+/* COUNTER */
+.counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 30px;
+}
+
+.counter button {
+  font-size: 24px;
+  padding: 10px 20px;
+}
+
+#count {
+  font-size: 28px;
+}
+
+.hint {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+/* DROPDOWN */
+.dropdown {
+  padding: 20px;
+}
+
+#dropdownBtn {
+  width: 100%;
+  padding: 12px;
+}
+
+#dropdownMenu {
+  display: none;
+  list-style: none;
+  background: white;
+  color: black;
+  padding: 0;
+  margin: 10px 0 0;
+}
+
+#dropdownMenu li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  background: white;
+  color: #333;
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 6px;
+  min-height: 60px;
+}
+
+/* KEY EVENTS */
+#keyOutput {
+  background: white;
+  color: black;
+  margin: 20px;
+  padding: 20px;
+  text-align: center;
+  font-size: 22px;
+  border-radius: 6px;
+}

@@ -1,0 +1,134 @@
+* { box-sizing: border-box; }
+
+body {
+margin: 0;
+padding: 20px;
+font-family: sans-serif;
+background: rgba(17, 17, 17, 0.07);
+}
+
+/* ---------------- TOP LAYOUT ---------------- */
+
+section[aria-label="Top layout"] {
+display: flex;
+flex-direction: column;
+gap: 1rem;
+}
+
+section[aria-label="Top layout"] h1 {
+margin: 0;
+}
+
+section[aria-label="Top layout"] header {
+background: rgb(15, 23, 42);
+color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 12px;
+}
+
+section[aria-label="Top layout"] nav {
+background: rgb(239, 68, 68);
+color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 12px;
+}
+
+/* ---------------- HERO ---------------- */
+
+section[aria-label="Hero"] {
+background: rgb(79, 131, 194);
+color: white;
+min-height: 200px;
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 20px 0;
+}
+
+/* ---------------- CONTENT AREA ---------------- */
+
+section[aria-label="Content Area"] {
+display: flex;
+flex-direction: column;
+gap: 2rem;
+}
+
+main {
+background: rgb(31, 42, 68);
+color: white;
+min-height: 200px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+section[aria-label="Side Content"] {
+display: flex;
+flex-direction: column;
+gap: 1.5rem;
+}
+
+section[aria-label="Image"] {
+background: rgb(204, 238, 238);
+min-height: 90px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+section[aria-label="Extra"] {
+background: rgb(52, 211, 153);
+min-height: 90px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+/* ---------------- BANNER ---------------- */
+
+section[aria-label="Banner"] {
+background: rgb(250, 204, 21);
+margin-top: 20px;
+min-height: 80px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+/* ---------------- DESKTOP ---------------- */
+
+@media (min-width: 768px) {
+
+section[aria-label="Top layout"] {
+flex-direction: row;
+gap: 12px;
+}
+
+section[aria-label="Top layout"] header {
+flex: 1;
+height: 80px;
+}
+
+section[aria-label="Top layout"] nav {
+flex: 3;
+height: 80px;
+}
+
+section[aria-label="Content Area"] {
+flex-direction: row;
+gap: 5rem;
+}
+
+main {
+flex: 2;
+}
+
+section[aria-label="Side Content"] {
+flex: 1;
+}
+
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Day 3 – JS DOM Practice</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <h1>DOM Practice</h1>
+  <button id="navToggle">☰</button>
+</nav>
+
+<ul id="navMenu" class="nav-menu">
+  <li>Home</li>
+  <li>About</li>
+  <li>Contact</li>
+</ul>
+
+<main>
+
+<!-- FAQ SECTION -->
+<section class="card">
+  <h2>FAQ – DOM Practice</h2>
+
+  <div class="faq active">
+    <button class="question">What is the DOM?</button>
+    <div class="answer">
+      The DOM represents a web page as a tree of objects that JavaScript can manipulate.
+    </div>
+  </div>
+
+  <div class="faq">
+    <button class="question">How do you select elements?</button>
+    <div class="answer">
+      Using getElementById, querySelector, and querySelectorAll.
+    </div>
+  </div>
+
+  <div class="faq">
+    <button class="question">How does event handling work?</button>
+    <div class="answer">
+      JavaScript listens for events like click, keypress, and mouse events.
+    </div>
+  </div>
+
+  <div class="faq">
+    <button class="question">What is event bubbling & delegation?</button>
+    <div class="answer">
+      Events bubble upward in the DOM; delegation uses this for efficiency.
+    </div>
+  </div>
+</section>
+
+<!-- COUNTER -->
+<section class="card">
+  <h2>Counter (Click + Keyboard)</h2>
+
+  <div class="counter">
+    <button id="decrease">−</button>
+    <span id="count">0</span>
+    <button id="increase">+</button>
+  </div>
+
+  <p class="hint">Use <b>Arrow Up</b> / <b>Arrow Down</b> keys</p>
+</section>
+
+<!-- DROPDOWN -->
+<section class="card">
+  <h2>Dropdown – DOM Topics</h2>
+
+  <div class="dropdown">
+    <button id="dropdownBtn">Select DOM Topic ▾</button>
+
+    <ul id="dropdownMenu">
+      <li data-value="selectors">DOM Selectors</li>
+      <li data-value="events">Event Listeners</li>
+      <li data-value="manipulation">DOM Manipulation</li>
+      <li data-value="delegation">Event Delegation</li>
+    </ul>
+
+    <div id="dropdownContent" class="dropdown-content">
+      <p>Select a topic to see details here.</p>
+    </div>
+  </div>
+</section>
+
+<!-- KEY EVENTS -->
+<section class="card">
+  <h2>Key Events</h2>
+  <p>Press any key:</p>
+  <div id="keyOutput">—</div>
+</section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

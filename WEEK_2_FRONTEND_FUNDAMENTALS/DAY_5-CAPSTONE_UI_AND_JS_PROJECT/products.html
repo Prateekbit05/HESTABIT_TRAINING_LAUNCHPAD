@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ShopZone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <h1>ShopZone</h1>
+
+  <input id="searchInput" type="text" placeholder="Search products..." aria-label="Search products">
+
+  <select id="categoryFilter" aria-label="Filter by category">
+    <option value="all">All Categories</option>
+  </select>
+
+  <select id="sortSelect" aria-label="Sort products">
+    <option value="">Sort</option>
+    <option value="price-desc">Price: High → Low</option>
+    <option value="price-asc">Price: Low → High</option>
+    <option value="rating-desc">Rating</option>
+  </select>
+
+  <button id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+
+  <button id="cartBtn" aria-label="Cart">
+    🛒 (<span id="cartCount">0</span>)
+  </button>
+</header>
+
+<div id="loader">Loading products...</div>
+
+<main>
+  <section id="productGrid" class="product-grid"></section>
+</main>
+
+<!-- PRODUCT MODAL -->
+<div id="modal" class="modal" aria-hidden="true">
+  <div class="modal-content">
+    <button id="closeModal" aria-label="Close modal">✖</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="js/products.js"></script>
+</body>
+</html>
