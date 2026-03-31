@@ -12,3 +12,4 @@ sha256sum "$ARTIFACT" > "$SHA_FILE"
 
 echo "Artifact created: $ARTIFACT"
 echo "Checksum saved to: $SHA_FILE"
+
