@@ -147,3 +147,4 @@ This week focused on building an engineering mindset through hands-on terminal w
 ## Final Reflection
 
 Week 1 significantly strengthened my engineering fundamentals. The combination of low-level system understanding, practical Node.js internals, disciplined Git usage, and automation-first thinking laid a strong foundation for scalable and maintainable software development.
+
