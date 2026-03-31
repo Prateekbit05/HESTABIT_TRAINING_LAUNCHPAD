@@ -131,3 +131,4 @@ These practices are essential for working in collaborative engineering teams.
 
 ## Conclusion
 Day 3 provided practical exposure to advanced Git features required for professional development environments. The lab reinforced the importance of commit discipline, safe error recovery, and collaboration-aware workflows.
+
