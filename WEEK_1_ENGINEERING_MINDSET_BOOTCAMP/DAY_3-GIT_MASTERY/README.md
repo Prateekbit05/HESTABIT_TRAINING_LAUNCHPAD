@@ -52,3 +52,4 @@ DAY_3-GIT_MASTERY/
 ├── bisect-session.txt   # Terminal log of git bisect process
 ├── package.json         # Node project config (if needed)
 └── report.md            # Exercise report and explanation
+
