@@ -104,3 +104,4 @@ day-1-html5-semantic/
 This exercise helped in building a strong foundation in HTML5 by focusing on semantics, structure, and accessibility. The blog layout created in this task can be easily extended with CSS and JavaScript in later stages.
 
 ---
+
