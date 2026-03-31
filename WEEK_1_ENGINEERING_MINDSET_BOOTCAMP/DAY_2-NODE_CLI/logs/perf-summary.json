@@ -1,0 +1,7 @@
+{
+  "concurrency_1": 464,
+  "concurrency_4": 552,
+  "concurrency_8": 235,
+  "unit": "milliseconds",
+  "description": "Performance benchmark summary for wordstat CLI"
+}
