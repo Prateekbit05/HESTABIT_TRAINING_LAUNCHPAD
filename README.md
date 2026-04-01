@@ -337,15 +337,15 @@ Day 5 → NEXUS AI (9-Agent Autonomous System — Capstone)
 
 | Week | Topic | Status |
 |------|-------|--------|
-| Week 1 | Engineering Mindset Bootcamp | ✅ Complete |
-| Week 2 | Frontend Fundamentals (HTML + CSS + JS) | ✅ Complete |
-| Week 3 | Advanced Frontend (Next.js + TailwindCSS) | ✅ Complete |
-| Week 4 | Advanced Backend Engineering | ✅ Complete |
-| Week 5 | Server Side Foundations with Docker & DevOps | ✅ Complete |
-| Week 6 | Machine Learning Engineering | ✅ Complete |
-| Week 7 | GenAI & Multimodal RAG Engineering | ✅ Complete |
-| Week 8 | LLM Fine-Tuning, Quantisation & Inference | ✅ Complete |
-| Week 9 | Agentic AI & Multi-Agent System Design | ✅ Complete |
+| Week 1 | Engineering Mindset Bootcamp |  Complete |
+| Week 2 | Frontend Fundamentals (HTML + CSS + JS) |  Complete |
+| Week 3 | Advanced Frontend (Next.js + TailwindCSS) |  Complete |
+| Week 4 | Advanced Backend Engineering |  Complete |
+| Week 5 | Server Side Foundations with Docker & DevOps |  Complete |
+| Week 6 | Machine Learning Engineering |  Complete |
+| Week 7 | GenAI & Multimodal RAG Engineering |  Complete |
+| Week 8 | LLM Fine-Tuning, Quantisation & Inference |  Complete |
+| Week 9 | Agentic AI & Multi-Agent System Design |  Complete |
 
 ---
 
