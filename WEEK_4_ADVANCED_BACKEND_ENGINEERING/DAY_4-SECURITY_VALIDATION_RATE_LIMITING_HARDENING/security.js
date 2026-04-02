@@ -89,3 +89,4 @@ module.exports = {
   securityHeaders,
   applySecurityMiddlewares
 };
+// Security middleware: Helmet CORS rate limiting and payload size hardening
