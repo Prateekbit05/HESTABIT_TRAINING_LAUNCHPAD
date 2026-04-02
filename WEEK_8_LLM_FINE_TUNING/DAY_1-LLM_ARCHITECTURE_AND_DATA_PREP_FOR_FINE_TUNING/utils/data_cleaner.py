@@ -174,8 +174,8 @@ class InstructionDatasetBuilder:
     def save_datasets(self, train_ratio=0.8):
         print("\n💾 Saving datasets...")
         
-        random.seed(42)
-        random.shuffle(self.instructions)
+        rng = random.Random(42)
+        rng.shuffle(self.instructions)
 
         split_idx = int(len(self.instructions) * train_ratio)
 
