@@ -160,3 +160,4 @@ const users = await User.find({ _id: { $gt: lastId } }).limit(limit);
 - **Virtual fields:** Computed properties like `fullName` or `averageRating` that aren't stored in DB but available on the document
 - **Compound indexes:** `{ status: 1, createdAt: -1 }` dramatically speeds up filtered + sorted queries that match both fields
 - **Sparse indexes:** Only index documents where the field exists — saves space when fields are optional
+
