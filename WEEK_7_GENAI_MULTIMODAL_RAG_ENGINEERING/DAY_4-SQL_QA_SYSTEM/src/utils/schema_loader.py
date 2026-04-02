@@ -133,3 +133,5 @@ if __name__ == "__main__":
         print(f"  • {table}")
     
     print("\n" + loader.get_schema_summary())
+
+# Schema loader: auto-extracts table schema from SQLite/PostgreSQL for LLM-aware SQL generation
