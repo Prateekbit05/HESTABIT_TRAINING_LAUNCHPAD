@@ -122,3 +122,5 @@ export function ModalFooter({ children, className = '' }) {
   );
 }
 // Modal: reusable TailwindCSS modal component with overlay open/close state and accessibility support
+
+// Modal: reusable TailwindCSS modal component with overlay open/close state and accessibility support
