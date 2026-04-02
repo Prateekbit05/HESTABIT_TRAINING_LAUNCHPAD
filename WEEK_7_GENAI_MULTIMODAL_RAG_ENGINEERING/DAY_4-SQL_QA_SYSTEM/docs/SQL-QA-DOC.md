@@ -630,3 +630,4 @@ System falls back to simple generator. Set `device: 'cpu'` in config, or reduce 
 ✅ `commands.md` — Command reference  
 
 ---
+
