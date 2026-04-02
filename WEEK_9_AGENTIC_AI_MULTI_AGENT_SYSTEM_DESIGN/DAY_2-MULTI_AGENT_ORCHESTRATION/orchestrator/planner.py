@@ -371,3 +371,4 @@ class OrchestratorAgent:
             f"workers={self.num_workers}, "
             f"registry={self.registry})"
         )
+# Planner: orchestrator agent that decomposes user queries into DAG-based task steps for worker delegation
