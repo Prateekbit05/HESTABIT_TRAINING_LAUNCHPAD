@@ -154,3 +154,4 @@ import Image from "next/image";
 - **Deep nested routing:** `/dashboard/profile/edit` is just another folder — Next.js handles it automatically
 - **Responsive Tailwind:** Using `sm:`, `md:`, `lg:` prefixes converts desktop layouts to mobile-first seamlessly
 
+
