@@ -1,7 +1,3 @@
-"""
-Better SQL extraction to handle LLM verbosity
-ReDoS fix: hard input cap + atomic-safe extraction replaces unbounded .+? with re.DOTALL
-"""
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 from pathlib import Path
@@ -13,11 +9,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from src.utils.schema_loader import SchemaLoader
 
-# Maximum characters of LLM output we will ever run a regex over.
-# Anything beyond this is truncated before matching — eliminates the
-# pathological O(n^2) backtracking case on inputs with no semicolon.
 _MAX_REGEX_INPUT = 4_000
-
 
 class SQLGenerator:
     """Generate SQL queries from natural language using LLM"""
@@ -53,8 +45,12 @@ class SQLGenerator:
 
         print("✅ SQL Generator ready!")
 
+    # ------------------------------------------------------------------ #
+    #  Prompt building                                                     #
+    # ------------------------------------------------------------------ #
+
     def _build_prompt(self, question: str) -> str:
-        """Build improved prompt"""
+        """Build a short, strict prompt that discourages LLM verbosity."""
         tables = self.schema_loader.get_tables()
 
         schema_context = ""
@@ -65,14 +61,17 @@ class SQLGenerator:
                 col_names = [col['name'] for col in columns]
                 schema_context += f"{table}: {', '.join(col_names)}\n"
 
-        prompt = f"""Generate ONLY a SQL SELECT query. No explanations.
+        return f"""Generate ONLY a SQL SELECT query. No explanations.
 {schema_context}
 Question: {question}
 SQL:"""
-        return prompt
+
+    # ------------------------------------------------------------------ #
+    #  Public interface                                                    #
+    # ------------------------------------------------------------------ #
 
     def generate(self, question: str) -> Dict:
-        """Generate SQL query from question"""
+        """Generate SQL query from a natural-language question."""
         try:
             prompt = self._build_prompt(question)
             outputs = self.pipe(prompt)
@@ -87,94 +86,10 @@ SQL:"""
         except Exception as e:
             return {'success': False, 'sql': None, 'error': str(e)}
 
-    def _extract_clean_sql(self, generated_text: str, prompt: str) -> Optional[str]:
-        """
-        Extract ONLY the SQL query, removing all LLM preamble and explanation.
-
-        ReDoS fix
-        ---------
-        The original pattern  r'(SELECT\s+.+?;)'  with re.DOTALL is vulnerable:
-        on a long string with no semicolon the engine tries every possible length
-        for .+? before giving up — O(n²) backtracking.
-
-        Mitigation applied:
-          1. Hard-cap the string to _MAX_REGEX_INPUT chars before any regex runs.
-          2. Replace .+? (lazy-any) with [^;]+ (greedy-but-excluded).
-             A character class that explicitly excludes the terminator cannot
-             backtrack past it, so the match is O(n) in all cases.
-        """
-        # Strip the echoed prompt so we only inspect new tokens
-        if prompt in generated_text:
-            sql_part = generated_text.split(prompt)[-1]
-        else:
-            sql_part = generated_text
-
-        sql_part = sql_part.strip()
-
-        # ── Hard cap: never run a regex over more than _MAX_REGEX_INPUT chars ──
-        sql_part = sql_part[:_MAX_REGEX_INPUT]
-
-        # ── Method 1: safe regex ──────────────────────────────────────────────
-        # [^;]+ matches any character except ';', so it terminates as soon as
-        # a semicolon is found — no backtracking is possible.
-        select_match = re.search(
-            r'(SELECT\s+[^;]+;)',
-            sql_part,
-            re.IGNORECASE
-        )
-
-        if select_match:
-            sql = select_match.group(1)
-
-            # Guard: keep only the first statement
-            if ';' in sql:
-                sql = sql.split(';')[0] + ';'
-
-            # Strip trailing explanation text that crept in before the semicolon
-            for separator in ['\n\n', 'Explanation:', 'Example:', 'Output:', 'Question:', '  ']:
-                if separator in sql:
-                    sql = sql.split(separator)[0].strip()
-                    if not sql.endswith(';'):
-                        sql += ';'
-
-            return self._clean_sql(sql)
-
-        # ── Method 2: line-by-line fallback (no regex risk) ──────────────────
-        lines = sql_part.split('\n')
-        sql_lines = []
-
-        for line in lines:
-            line = line.strip()
-
-            if any(kw in line for kw in ['Explanation:', 'Example:', 'Output:', 'Question:', 'Expected']):
-                break
-
-            if 'SELECT' in line.upper() or sql_lines:
-                sql_lines.append(line)
-                if ';' in line:
-                    break
-
-        if sql_lines:
-            sql = ' '.join(sql_lines)
-            sql = self._clean_sql(sql)
-            if not sql.endswith(';'):
-                sql += ';'
-            return sql
-
-        return None
-
-    def _clean_sql(self, sql: str) -> str:
-        """Normalise whitespace, strip comments, ensure single trailing semicolon."""
-        sql = re.sub(r'\s+', ' ', sql)
-        sql = re.sub(r'--[^\n]*', '', sql)         # strip inline comments
-        sql = sql.rstrip(';').strip() + ';'
-        # Keep only first statement
-        if sql.count(';') > 1:
-            sql = sql.split(';')[0] + ';'
-        return sql.strip()
-
     def generate_with_retry(self, question: str) -> Dict:
-        """Generate SQL with retry logic"""
+        """Generate SQL with retry logic, discarding outputs that still contain explanation text."""
+        result: Dict = {'success': False, 'sql': None, 'error': 'No attempts made'}
+
         for attempt in range(self.max_retries):
             result = self.generate(question)
 
@@ -191,6 +106,97 @@ SQL:"""
         result['attempt'] = self.max_retries
         return result
 
+    # ------------------------------------------------------------------ #
+    #  SQL extraction                                                      #
+    # ------------------------------------------------------------------ #
+
+    def _extract_clean_sql(self, generated_text: str, prompt: str) -> Optional[str]:
+        """
+        Extract only the SQL query from LLM output, stripping preamble and
+        any trailing explanation text.
+
+        Two-layer ReDoS defence
+        ───────────────────────
+        Layer 1 — hard cap: truncate to _MAX_REGEX_INPUT chars before any
+                  regex runs.  Even a theoretically safe pattern can be slow
+                  on a 500 KB LLM dump; this bounds the worst case absolutely.
+
+        Layer 2 — single unambiguous class: _SELECT_RE uses SELECT[^;]+;
+                  instead of SELECT\s+[^;]+;.  Keeping \s+ as a separate
+                  quantifier ahead of [^;]+ creates overlap (whitespace
+                  matches both), allowing the engine to retry every split
+                  on inputs that lack a semicolon — polynomial backtracking.
+                  Merging into one class removes all ambiguity.
+        """
+        # Strip echoed prompt so we only inspect newly generated tokens
+        if prompt in generated_text:
+            sql_part = generated_text.split(prompt)[-1]
+        else:
+            sql_part = generated_text
+
+        sql_part = sql_part.strip()
+
+        # Layer 1 — hard cap
+        sql_part = sql_part[:_MAX_REGEX_INPUT]
+
+        # ── Method 1: compiled, ReDoS-safe regex ─────────────────────────
+        select_match = _SELECT_RE.search(sql_part)
+
+        if select_match:
+            sql = select_match.group(1)
+
+            # Keep only the first statement
+            if ';' in sql:
+                sql = sql.split(';')[0] + ';'
+
+            # Strip explanation text that crept in before the semicolon
+            for separator in ['\n\n', 'Explanation:', 'Example:', 'Output:', 'Question:', '  ']:
+                if separator in sql:
+                    sql = sql.split(separator)[0].strip()
+                    if not sql.endswith(';'):
+                        sql += ';'
+
+            return self._clean_sql(sql)
+
+        # ── Method 2: line-by-line fallback (zero regex risk) ────────────
+        sql_lines = []
+        for line in sql_part.split('\n'):
+            line = line.strip()
+
+            if any(kw in line for kw in ['Explanation:', 'Example:', 'Output:', 'Question:', 'Expected']):
+                break
+
+            if 'SELECT' in line.upper() or sql_lines:
+                sql_lines.append(line)
+                if ';' in line:
+                    break
+
+        if sql_lines:
+            sql = self._clean_sql(' '.join(sql_lines))
+            if not sql.endswith(';'):
+                sql += ';'
+            return sql
+
+        return None
+
+    # ------------------------------------------------------------------ #
+    #  SQL cleaning                                                        #
+    # ------------------------------------------------------------------ #
+
+    def _clean_sql(self, sql: str) -> str:
+        """Normalise whitespace, strip comments, ensure single trailing semicolon."""
+        sql = re.sub(r'\s+', ' ', sql)          # collapse whitespace
+        sql = re.sub(r'--[^\n]*', '', sql)       # strip inline comments (safe: [^\n]* can't backtrack past \n)
+        sql = sql.rstrip(';').strip() + ';'
+        # Keep only the first statement
+        if sql.count(';') > 1:
+            sql = sql.split(';')[0] + ';'
+        return sql.strip()
+
+
+# ------------------------------------------------------------------ #
+#  Smoke test                                                          #
+# ------------------------------------------------------------------ #
 
 if __name__ == "__main__":
     print("Testing SQL Generator...\n")
