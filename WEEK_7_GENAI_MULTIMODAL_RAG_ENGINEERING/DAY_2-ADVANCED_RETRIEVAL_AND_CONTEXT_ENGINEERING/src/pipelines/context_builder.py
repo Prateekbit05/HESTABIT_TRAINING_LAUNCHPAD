@@ -159,3 +159,5 @@ class ContextBuilder:
             'max_tokens': self.max_tokens,
             'token_utilization': total_tokens / self.max_tokens if self.max_tokens > 0 else 0
         }
+
+# Context builder: assembles reranked chunks into token-aware optimized LLM context window
