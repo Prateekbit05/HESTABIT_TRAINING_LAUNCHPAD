@@ -114,3 +114,4 @@ if __name__ == "__main__":
     else:
         # Default: run task 1
         run_task(EXAMPLE_TASKS[0])
+# NEXUS AI: autonomous multi-agent system with orchestrator planner researcher coder analyst critic validator and reporter agents
