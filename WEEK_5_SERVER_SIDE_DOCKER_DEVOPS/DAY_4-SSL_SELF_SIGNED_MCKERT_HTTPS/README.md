@@ -157,3 +157,4 @@ services:
 - **HTTP → HTTPS redirect:** `return 301 https://$host$request_uri` ensures all traffic is always encrypted
 - **Certificate mounting:** Certs are mounted into the NGINX container via a volume — no need to rebuild the image when certs change
 - **Port 443:** Standard HTTPS port — must be exposed in both Docker and NGINX config
+
