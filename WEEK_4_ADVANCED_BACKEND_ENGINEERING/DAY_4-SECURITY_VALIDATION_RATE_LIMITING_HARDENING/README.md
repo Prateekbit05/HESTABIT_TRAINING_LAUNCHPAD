@@ -153,3 +153,4 @@ app.use(express.json({ limit: "10kb" }));
 - **NoSQL Injection:** Mongoose operators like `$gt` in request bodies can bypass auth — validation schemas block this at the entry point
 - **XSS:** Sanitizing and validating all string inputs before processing prevents script injection
 - **CORS:** Whitelisting allowed origins ensures only trusted frontends can communicate with the API
+
