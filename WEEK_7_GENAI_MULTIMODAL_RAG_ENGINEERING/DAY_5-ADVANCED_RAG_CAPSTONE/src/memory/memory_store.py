@@ -193,3 +193,5 @@ if __name__ == "__main__":
     print(f"  Total messages: {stats['total_messages']}")
     
     print("\n✅ Memory Store test complete!")
+
+# Memory store: conversational memory retaining last 5 messages with Vector Redis and local file support
