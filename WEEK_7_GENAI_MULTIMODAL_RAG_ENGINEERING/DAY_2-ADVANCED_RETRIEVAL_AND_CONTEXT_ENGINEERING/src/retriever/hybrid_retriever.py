@@ -173,3 +173,4 @@ if __name__ == "__main__":
         print(f"Metadata keys: {list(chunk.get('metadata', {}).keys())}")
         print(f"Metadata values: {chunk.get('metadata', {})}")
         print()
+# Hybrid retriever: combines BM25 keyword search with semantic vector search for improved precision
