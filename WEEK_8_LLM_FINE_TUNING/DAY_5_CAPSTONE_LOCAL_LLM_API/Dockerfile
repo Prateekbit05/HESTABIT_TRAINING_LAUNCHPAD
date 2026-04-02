@@ -6,7 +6,7 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc g++ curl \
     && rm -rf /var/lib/apt/lists/*
 
@@ -17,12 +17,19 @@ COPY deploy/ ./deploy/
 COPY cli_chat.py .
 COPY streamlit_ui.py .
 
-RUN mkdir -p logs
+# ── Create non-root user ──────────────────────────────────
+RUN groupadd --gid 1001 appgroup && \
+    useradd --uid 1001 --gid appgroup --no-create-home appuser
+
+# Create dirs and transfer ownership before switching user
+RUN mkdir -p logs /app/model_cache && \
+    chown -R appuser:appgroup /app
+
+# Switch to non-root user
+USER appuser
 
 ENV PYTHONUNBUFFERED=1
 ENV TRANSFORMERS_CACHE=/app/model_cache
-
-RUN mkdir -p /app/model_cache
 
 EXPOSE 8001
 
@@ -30,4 +37,5 @@ HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
     CMD curl -f http://localhost:8001/health || exit 1
 
 CMD ["python", "-m", "deploy.app"]
-# Dockerfile: containerized local LLM API with FastAPI quantized model and production inference setup
+
+# Dockerfile: containerized local LLM API with FastAPI, non-root user, and secure inference setup
