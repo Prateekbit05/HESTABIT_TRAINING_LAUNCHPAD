@@ -152,3 +152,4 @@ exports.deleteProduct = async (req, res) => {
     });
   }
 };
+// Product controller: handles HTTP requests with dynamic search filtering sorting and soft delete
