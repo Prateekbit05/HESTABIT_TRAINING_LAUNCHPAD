@@ -86,3 +86,5 @@ export function CardFooter({ children, className = '' }) {
   );
 }
 // Card: reusable TailwindCSS card component with flexible content slots and shadow variants
+
+// Card: reusable TailwindCSS card component with flexible content slots and shadow variants
