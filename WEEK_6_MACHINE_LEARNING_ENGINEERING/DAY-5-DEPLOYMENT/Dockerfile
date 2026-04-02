@@ -56,3 +56,4 @@ CMD ["uvicorn", "deployment.api:app", \
      "--port", "8000", \
      "--workers", "1", \
      "--log-level", "info"]
+# Dockerfile: containerized ML API with FastAPI and model artifact for production deployment
