@@ -16,3 +16,4 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+# docker-compose: ML API deployment stack with monitoring and prediction logging services
