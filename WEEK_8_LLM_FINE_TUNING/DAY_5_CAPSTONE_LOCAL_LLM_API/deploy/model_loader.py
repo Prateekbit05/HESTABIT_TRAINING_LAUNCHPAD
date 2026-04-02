@@ -613,3 +613,4 @@ if __name__ == "__main__":
     print(f"  Speed:  {result['tokens_per_second']} tok/s")
 
     print("\n✅ Test complete!")
+# Model loader: loads quantized LLM with caching support for fast inference and memory efficiency
