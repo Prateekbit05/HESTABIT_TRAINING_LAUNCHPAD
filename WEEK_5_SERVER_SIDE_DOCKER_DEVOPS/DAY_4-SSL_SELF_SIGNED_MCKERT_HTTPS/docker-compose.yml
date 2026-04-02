@@ -44,3 +44,5 @@ services:
 networks:
   app-network:
     driver: bridge
+
+# docker-compose: HTTPS stack with NGINX SSL termination and mkcert self-signed certificates
