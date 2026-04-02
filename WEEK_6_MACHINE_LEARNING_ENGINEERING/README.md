@@ -576,3 +576,4 @@ docker-compose up -d                            # Start all services
 docker-compose logs -f                          # Follow logs
 docker-compose down                             # Stop all services
 ```
+
