@@ -195,3 +195,4 @@ app.use((req, res, next) => {
 - **Structured logging:** JSON logs with consistent fields (`requestId`, `method`, `path`, `duration`) are machine-readable and integrate with log aggregators like Datadog or ELK
 - **PM2 ecosystem config:** Defining app config in `ecosystem.config.js` makes deployment reproducible — one command starts all processes with correct env vars and cluster mode
 - **Postman collections:** Exporting collections as JSON enables team-wide API documentation that stays in sync with the codebase
+
