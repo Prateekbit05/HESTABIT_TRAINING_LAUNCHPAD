@@ -106,3 +106,4 @@ export default function Sidebar() {
     </aside>
   );
 }
+// Sidebar: TailwindCSS responsive sidebar component with navigation links and spacing system
