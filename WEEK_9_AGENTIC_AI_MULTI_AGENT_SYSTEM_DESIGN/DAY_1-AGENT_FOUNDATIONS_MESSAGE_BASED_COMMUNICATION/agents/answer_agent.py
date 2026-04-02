@@ -217,3 +217,4 @@ IMPORTANT RULES:
             "memory_window": self.memory_window,
             "memory_count":  len(self.get_memory()),
         }
+# Answer agent: AutoGen-based agent that receives summaries and generates final user-facing answers
