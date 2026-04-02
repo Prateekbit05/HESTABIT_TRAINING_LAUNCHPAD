@@ -80,3 +80,4 @@ DAY_2-Tailwind Advanced_AND_Component Library/
 - **Props-driven components:** Passing `variant`, `size`, `onClick` as props makes components flexible without duplicating code
 - **Tailwind class composition:** Using template literals to conditionally apply Tailwind classes based on props
 - **Component reuse:** Day 1's Navbar and Sidebar plugged in seamlessly as the layout shell
+
