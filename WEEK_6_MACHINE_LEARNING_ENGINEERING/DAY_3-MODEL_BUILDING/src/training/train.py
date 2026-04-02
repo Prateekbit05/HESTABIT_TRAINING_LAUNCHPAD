@@ -388,3 +388,4 @@ if __name__ == "__main__":
     os.chdir(Path(__file__).resolve().parent.parent.parent)
     trainer = ModelTrainer()
     trainer.run_pipeline()
+# Model training: trains and evaluates multiple ML models with cross-validation and metrics
