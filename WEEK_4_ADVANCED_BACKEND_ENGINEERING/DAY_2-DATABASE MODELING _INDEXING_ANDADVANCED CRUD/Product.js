@@ -36,3 +36,4 @@ productSchema.pre('save', function (next) {
 });
 
 module.exports = mongoose.model('Product', productSchema);
+// Product model: Mongoose schema with compound indexes for search and filtering
