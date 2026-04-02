@@ -68,3 +68,5 @@ dropdownMenu.addEventListener("click", (e) => {
     dropdownBtn.textContent = e.target.textContent + " ▾";
   }
 });
+
+// DOM manipulation: FAQ accordion counter dropdown and keyboard event handlers using ES6
