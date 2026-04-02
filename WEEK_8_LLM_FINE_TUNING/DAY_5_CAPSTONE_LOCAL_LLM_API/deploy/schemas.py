@@ -116,3 +116,4 @@ class SwitchModelResponse(BaseModel):
     new_model: str
     new_model_key: str
     load_time_seconds: float
+# Schemas: Pydantic request and response schemas for LLM API input validation and output structure
