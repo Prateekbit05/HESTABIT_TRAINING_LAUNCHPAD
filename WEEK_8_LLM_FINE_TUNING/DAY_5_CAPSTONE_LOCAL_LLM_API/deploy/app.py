@@ -251,3 +251,4 @@ if __name__ == "__main__":
     print(f" Docs:   http://localhost:{config.server.port}/docs")
     print("=" * 60)
     uvicorn.run("deploy.app:app", host=config.server.host, port=config.server.port, workers=config.server.workers, log_level=config.server.log_level, reload=False)
+# LLM API: FastAPI server exposing /generate and /chat endpoints with streamed output and request logging
