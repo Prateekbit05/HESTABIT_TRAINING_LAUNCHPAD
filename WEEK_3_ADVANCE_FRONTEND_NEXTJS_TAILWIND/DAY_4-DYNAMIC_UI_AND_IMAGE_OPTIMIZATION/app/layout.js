@@ -79,3 +79,5 @@ export default function RootLayout({ children }) {
   );
 }
 // Root layout: Next.js layout with SEO metadata config font optimization and TailwindCSS globals
+
+// Root layout: Next.js layout with SEO metadata config font optimization and TailwindCSS globals
