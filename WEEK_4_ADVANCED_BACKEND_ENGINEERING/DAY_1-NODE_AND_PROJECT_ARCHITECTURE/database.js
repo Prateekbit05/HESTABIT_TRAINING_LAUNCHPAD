@@ -11,3 +11,4 @@ module.exports = async () => {
     process.exit(1);
   }
 };
+// Database: MongoDB connection with error handling and graceful exit
