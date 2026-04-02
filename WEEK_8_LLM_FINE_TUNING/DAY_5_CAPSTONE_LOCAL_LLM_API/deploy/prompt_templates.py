@@ -31,3 +31,4 @@ if __name__ == "__main__":
     msgs = build_generate_messages("What is Python?", "Be helpful.")
     for m in msgs:
         print(f"  {m['role']}: {m['content']}")
+# Prompt templates: system and user prompt formats for chat and generation inference modes
