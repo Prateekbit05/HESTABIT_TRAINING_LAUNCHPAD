@@ -26,3 +26,4 @@ logger.stream = {
 };
 
 module.exports = logger;
+// Logger: Winston structured logger with colorized console and Morgan stream support
