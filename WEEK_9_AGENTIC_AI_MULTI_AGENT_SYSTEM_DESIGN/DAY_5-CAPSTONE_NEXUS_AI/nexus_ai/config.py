@@ -92,3 +92,4 @@ EXAMPLE_TASKS = [
 # ── Ensure directories exist ──────────────────────────────────────────
 for d in [DATA_DIR, OUTPUT_DIR, LOGS_DIR, MEMORY_DIR]:
     os.makedirs(d, exist_ok=True)
+# NEXUS AI config: agent roles model settings tool registry memory backend and logging configuration
