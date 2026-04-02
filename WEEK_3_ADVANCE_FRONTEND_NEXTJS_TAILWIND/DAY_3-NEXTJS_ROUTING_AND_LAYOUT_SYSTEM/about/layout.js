@@ -208,3 +208,5 @@ export default function AboutPage() {
   );
 }
 // About layout: Next.js nested layout for about section with shared navigation
+
+// About layout: Next.js nested layout for about section with shared navigation
