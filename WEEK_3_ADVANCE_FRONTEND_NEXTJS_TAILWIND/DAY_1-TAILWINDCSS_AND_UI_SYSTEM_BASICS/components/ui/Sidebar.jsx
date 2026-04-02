@@ -107,3 +107,5 @@ export default function Sidebar() {
   );
 }
 // Sidebar: TailwindCSS responsive sidebar component with navigation links and spacing system
+
+// Sidebar: TailwindCSS responsive sidebar component with navigation links and spacing system
