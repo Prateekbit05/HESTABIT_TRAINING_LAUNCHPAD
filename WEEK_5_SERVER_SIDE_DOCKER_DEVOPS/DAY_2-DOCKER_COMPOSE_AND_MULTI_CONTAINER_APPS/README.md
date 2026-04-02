@@ -172,3 +172,4 @@ docker compose down -v
 - **Named volumes:** `mongo-data:/data/db` persists database data even after `docker compose down`
 - **Single command deployment:** `docker compose up -d` spins up the entire stack — no manual setup needed
 - **Service isolation:** Each service runs in its own container with its own filesystem and network interface
+
