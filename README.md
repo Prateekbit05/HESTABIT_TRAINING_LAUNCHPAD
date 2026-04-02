@@ -1,7 +1,7 @@
-# 🚀 HESTABIT TRAINING TASKS -> [WEEK-1-->WEEK-9]
+# HESTABIT TRAINING TASKS -> [WEEK-1-->WEEK-9]
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Tech Stack](#tech-stack)
@@ -188,7 +188,7 @@ Each week has a dedicated folder with day-wise deliverables, screenshots, and do
 | Random Forest | 0.1420 | 0.1784 | 17.4s |
 | Neural Network | 0.3285 | 0.1779 | 51.1s |
 | XGBoost | 0.3190 | 0.2262 | 81.5s |
-| **LightGBM ✅** | **0.3172** | **0.2343** | 94.7s |
+| **LightGBM ** | **0.3172** | **0.2343** | 94.7s |
 
 **API Endpoints (Day 5 Capstone):**
 
