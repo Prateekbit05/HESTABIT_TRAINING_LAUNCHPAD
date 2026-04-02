@@ -142,3 +142,4 @@ if (includeDeleted) delete filter.deletedAt;
 - **Centralized error middleware:** A single Express error handler catches all thrown errors and formats them consistently
 - **PM2:** Process manager that keeps Node.js apps alive, restarts on crash, and manages multiple processes via ecosystem config
 - **Redis:** Used for caching frequent queries to reduce DB load and improve API response times
+
