@@ -156,3 +156,5 @@ document.getElementById("themeToggle").onclick = () => {
 
 // INIT
 fetchProducts();
+
+// Products: fetches from dummyjson API renders product cards with search filter and price sort
