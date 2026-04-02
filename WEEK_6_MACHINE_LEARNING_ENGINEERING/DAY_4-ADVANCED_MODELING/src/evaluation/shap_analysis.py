@@ -190,3 +190,4 @@ class SHAPAnalyzer:
 if __name__ == "__main__":
     analyzer = SHAPAnalyzer()
     analyzer.run_analysis()
+# SHAP analysis: model interpretability with feature importance and explainability plots
