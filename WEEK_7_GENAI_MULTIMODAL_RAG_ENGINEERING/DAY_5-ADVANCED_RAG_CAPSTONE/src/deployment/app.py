@@ -1,8 +1,8 @@
 """
 FastAPI Application - Production-Ready API
 """
-
 import os
+import re
 import sys
 import json
 import logging
@@ -59,7 +59,26 @@ pipeline = None
 memory_store = None
 
 
-# Request Models
+# ── Security Helpers ──────────────────────────────────────────────────────────
+
+def sanitize_for_log(value: str, max_length: int = 50) -> str:
+    """
+    Strip newlines / carriage-returns (log-injection characters) from a
+    user-supplied string and truncate it so it is safe to include in a
+    log message.
+    """
+    if not isinstance(value, str):
+        value = str(value)
+    # Remove characters that allow log-injection / forged log lines
+    sanitized = re.sub(r"[\r\n\t]", " ", value)
+    # Truncate to avoid excessively long log lines
+    if len(sanitized) > max_length:
+        sanitized = sanitized[:max_length] + "…"
+    return sanitized
+
+
+# ── Request Models ────────────────────────────────────────────────────────────
+
 class AskRequest(BaseModel):
     question: str
     session_id: Optional[str] = "default"
@@ -73,9 +92,10 @@ class AskSQLRequest(BaseModel):
     use_memory: bool = True
 
 
-# Helper Functions
+# ── Helper Functions ──────────────────────────────────────────────────────────
+
 def save_chat_log(log_entry: dict):
-    """Save chat interaction to log file"""
+    """Save chat interaction to log file."""
     try:
         if CHAT_LOGS_PATH.exists():
             with open(CHAT_LOGS_PATH) as f:
@@ -91,22 +111,21 @@ def save_chat_log(log_entry: dict):
         logger.error(f"Failed to save chat log: {e}")
 
 
-# Lifespan Event
+# ── Lifespan Event ────────────────────────────────────────────────────────────
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Lifespan event handler for startup and shutdown"""
+    """Lifespan event handler for startup and shutdown."""
     global pipeline, memory_store
 
     # Startup
     logger.info("🚀 Starting Advanced RAG API...")
-
     try:
         from src.deployment.unified_pipeline import UnifiedRAGPipeline
         from src.memory.memory_store import MemoryStore
 
         pipeline = UnifiedRAGPipeline(str(CONFIG_PATH))
         memory_store = MemoryStore(str(CONFIG_PATH))
-
         logger.info("✅ All components initialized")
     except Exception as e:
         logger.error(f"❌ Initialization error: {e}")
@@ -119,7 +138,8 @@ async def lifespan(app: FastAPI):
     logger.info("👋 Shutting down Advanced RAG API...")
 
 
-# FastAPI App
+# ── FastAPI App ───────────────────────────────────────────────────────────────
+
 app = FastAPI(
     title="Advanced RAG Capstone System",
     version="1.0.0",
@@ -137,10 +157,11 @@ app.add_middleware(
 )
 
 
-# API Endpoints
+# ── API Endpoints ─────────────────────────────────────────────────────────────
+
 @app.get("/")
 async def root():
-    """Root endpoint - API info"""
+    """Root endpoint - API info."""
     return {
         "name": "Advanced RAG Capstone System",
         "version": "1.0.0",
@@ -161,7 +182,7 @@ async def root():
 
 @app.get("/health")
 async def health_check():
-    """Health check endpoint"""
+    """Health check endpoint."""
     return {
         "status": "healthy",
         "timestamp": datetime.now().isoformat(),
@@ -174,9 +195,12 @@ async def health_check():
 
 @app.post("/ask")
 async def ask(request: AskRequest):
-    """General question answering endpoint"""
+    """General question answering endpoint."""
 
-    logger.info(f"📝 /ask - Session: {request.session_id}, Q: {request.question}")
+    # FIX: sanitize user-controlled fields before logging to prevent log injection
+    safe_session = sanitize_for_log(request.session_id)
+    safe_question = sanitize_for_log(request.question)
+    logger.info(f"📝 /ask - Session: {safe_session}, Q: {safe_question}")
 
     if pipeline is None:
         raise HTTPException(status_code=503, detail="Pipeline not initialized")
@@ -219,8 +243,8 @@ async def ask(request: AskRequest):
             "evaluation": response['evaluation']
         })
 
+        # FIX: log only safe, system-generated values — never raw user input
         logger.info(f"✅ /ask - Quality: {response['evaluation']['quality']}")
-
         return JSONResponse(content=response)
 
     except Exception as e:
@@ -232,9 +256,12 @@ async def ask(request: AskRequest):
 
 @app.post("/ask-sql")
 async def ask_sql(request: AskSQLRequest):
-    """SQL question answering endpoint"""
+    """SQL question answering endpoint."""
 
-    logger.info(f"🗄️  /ask-sql - Session: {request.session_id}, Q: {request.question}")
+    # FIX: sanitize user-controlled fields before logging to prevent log injection
+    safe_session = sanitize_for_log(request.session_id)
+    safe_question = sanitize_for_log(request.question)
+    logger.info(f"🗄️  /ask-sql - Session: {safe_session}, Q: {safe_question}")
 
     if pipeline is None:
         raise HTTPException(status_code=503, detail="Pipeline not initialized")
@@ -253,7 +280,7 @@ async def ask_sql(request: AskSQLRequest):
         if result.get('data') is not None:
             try:
                 data_dict = result['data'].to_dict('records')
-            except:
+            except Exception:
                 data_dict = str(result.get('data'))
 
         response = {
@@ -281,8 +308,8 @@ async def ask_sql(request: AskSQLRequest):
             "row_count": result.get('row_count', 0)
         })
 
+        # FIX: log only safe, system-generated values — never raw user input
         logger.info(f"✅ /ask-sql - Rows: {response['row_count']}")
-
         return JSONResponse(content=response)
 
     except Exception as e:
@@ -298,9 +325,12 @@ async def ask_image(
     question: Annotated[str, Form()],
     session_id: Annotated[str, Form()] = "default"
 ):
-    """Image analysis endpoint"""
+    """Image analysis endpoint."""
 
-    logger.info(f"🖼️  /ask-image - Session: {session_id}, Q: {question}")
+    # FIX: sanitize user-controlled fields before logging to prevent log injection
+    safe_session = sanitize_for_log(session_id)
+    safe_question = sanitize_for_log(question)
+    logger.info(f"🖼️  /ask-image - Session: {safe_session}, Q: {safe_question}")
 
     if pipeline is None:
         raise HTTPException(status_code=503, detail="Pipeline not initialized")
@@ -345,6 +375,8 @@ async def ask_image(
             "image": file.filename
         })
 
+        # FIX: log only safe, system-generated values — never raw user input
+        logger.info(f"✅ /ask-image - Quality: {response['evaluation']['quality']}")
         return JSONResponse(content=response)
 
     except Exception as e:
@@ -356,15 +388,12 @@ async def ask_image(
 
 @app.get("/memory/{session_id}")
 async def get_memory(session_id: str, limit: Optional[int] = 10):
-    """Get conversation history"""
-
+    """Get conversation history."""
     if memory_store is None:
         raise HTTPException(status_code=503, detail="Memory store not initialized")
-
     try:
         history = memory_store.get_history(session_id, limit=limit)
         stats = memory_store.get_session_stats(session_id)
-
         return {"session_id": session_id, "history": history, "stats": stats}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -372,11 +401,9 @@ async def get_memory(session_id: str, limit: Optional[int] = 10):
 
 @app.delete("/memory/{session_id}/clear")
 async def clear_memory(session_id: str):
-    """Clear conversation history"""
-
+    """Clear conversation history."""
     if memory_store is None:
         raise HTTPException(status_code=503, detail="Memory store not initialized")
-
     try:
         memory_store.clear_session(session_id)
         return {"success": True, "session_id": session_id, "message": "Memory cleared"}
@@ -386,17 +413,14 @@ async def clear_memory(session_id: str):
 
 @app.get("/stats")
 async def get_stats():
-    """Get system statistics"""
-
+    """Get system statistics."""
     try:
         sessions = memory_store.get_all_sessions() if memory_store else []
-
         total_interactions = 0
         if CHAT_LOGS_PATH.exists():
             with open(CHAT_LOGS_PATH) as f:
                 logs = json.load(f)
                 total_interactions = len(logs.get('interactions', []))
-
         return {
             "sessions": {"total": len(sessions), "session_ids": sessions[:10]},
             "interactions": {"total": total_interactions}
@@ -405,7 +429,8 @@ async def get_stats():
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# Main
+# ── Main ──────────────────────────────────────────────────────────────────────
+
 if __name__ == "__main__":
     print(f"\n{'='*80}")
     print(f"ADVANCED RAG CAPSTONE API")
@@ -422,5 +447,3 @@ if __name__ == "__main__":
         reload=config['api']['reload'],
         log_level="info"
     )
-
-# Capstone API: FastAPI app exposing /ask /ask-image /ask-sql endpoints with memory and evaluation
