@@ -200,3 +200,4 @@ if __name__ == "__main__":
     print("=" * 55)
     r = tool.analyze_dataset(csv_path)
     print(r["output"] if r["status"] == "success" else r["error"])
+# Code executor tool: agent tool for safe Python code execution and result capture without external APIs
