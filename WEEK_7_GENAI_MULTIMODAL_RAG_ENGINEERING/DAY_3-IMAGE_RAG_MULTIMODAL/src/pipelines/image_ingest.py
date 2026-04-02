@@ -171,3 +171,4 @@ def run_ingestion():
 if __name__ == "__main__":
     success = run_ingestion()
     sys.exit(0 if success else 1)
+# Image ingest: processes PNG JPG scanned PDFs with OCR captioning and CLIP embedding generation
