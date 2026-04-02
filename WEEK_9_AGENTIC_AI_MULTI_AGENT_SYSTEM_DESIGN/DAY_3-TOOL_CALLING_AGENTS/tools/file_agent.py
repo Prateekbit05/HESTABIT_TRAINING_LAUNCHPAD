@@ -323,3 +323,4 @@ if __name__ == "__main__":
     print("=" * 55)
     r = tool.search_by_column(csv_path, "Industry", "Healthcare")
     print(f"  Healthcare agents: {r['matches']}")
+# File agent tool: reads and writes TXT and CSV files enabling agents to process and store local data
