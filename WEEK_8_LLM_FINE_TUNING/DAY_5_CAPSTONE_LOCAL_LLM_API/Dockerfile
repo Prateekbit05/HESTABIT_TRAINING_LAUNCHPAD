@@ -17,12 +17,10 @@ COPY deploy/ ./deploy/
 COPY cli_chat.py .
 COPY streamlit_ui.py .
 
-# ── Create non-root user ──────────────────────────────────
+# ── Create non-root user, dirs and ownership in a single RUN ─────────────────
 RUN groupadd --gid 1001 appgroup && \
-    useradd --uid 1001 --gid appgroup --no-create-home appuser
-
-# Create dirs and transfer ownership before switching user
-RUN mkdir -p logs /app/model_cache && \
+    useradd --uid 1001 --gid appgroup --no-create-home appuser && \
+    mkdir -p logs /app/model_cache && \
     chown -R appuser:appgroup /app
 
 # Switch to non-root user
