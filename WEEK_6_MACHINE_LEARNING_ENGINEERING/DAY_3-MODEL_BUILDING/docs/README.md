@@ -152,3 +152,4 @@ pyyaml>=6.0
 - **label_binarize for ROC-AUC** — handles multi-class (OvR strategy)
 - **`zero_division=0`** — safe handling of unseen classes in CV folds
 - **Auto directory creation** — pipeline is self-contained and reproducible
+
