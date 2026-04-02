@@ -817,3 +817,4 @@ if __name__ == "__main__":
         print(f"   - src/notebooks/plots/importance_*.png")
     else:
         print("\n❌ Feature selection failed!")
+# Feature selector: selects top features using correlation importance and variance analysis
