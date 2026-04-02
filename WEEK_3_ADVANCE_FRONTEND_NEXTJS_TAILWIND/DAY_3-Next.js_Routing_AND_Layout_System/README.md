@@ -82,3 +82,4 @@ DAY_3-Next.js_Routing_AND_Layout_System/
 - **Server Components by default:** Next.js renders components on the server unless `"use client"` is declared
 - **Nested routes:** `/dashboard/profile` is achieved simply by nesting folders — `dashboard/profile/page.js`
 - **Component reuse:** Day 2 UI components (Navbar, Sidebar, Card) plugged directly into the layout shell
+
