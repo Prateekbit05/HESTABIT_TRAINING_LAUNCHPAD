@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+
 const userSchema = new mongoose.Schema(
   {
     email: {
@@ -8,7 +10,7 @@ const userSchema = new mongoose.Schema(
       required: [true, 'Email is required'],
       unique: true,
       lowercase: true,
-      match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email']
+      match: [EMAIL_REGEX, 'Please provide a valid email']
     },
     firstName: {
       type: String,
@@ -25,14 +27,15 @@ const userSchema = new mongoose.Schema(
 
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
-  const saltRounds = process.env.BCRYPT_SALT || 10;
-  this.password = await bcrypt.hash(this.password, parseInt(saltRounds));
+  // parseInt before || so a set env var isn't passed as a raw string to bcrypt
+  const saltRounds = parseInt(process.env.BCRYPT_SALT) || 10;
+  this.password = await bcrypt.hash(this.password, saltRounds);
   next();
 });
 
-userSchema.methods.comparePassword = async function (password) {
-  return await bcrypt.compare(password, this.password);
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  // No redundant await — bcrypt.compare already returns a Promise
+  return bcrypt.compare(candidatePassword, this.password);
 };
 
 module.exports = mongoose.model('User', userSchema);
-// User model: Mongoose schema with indexes for email and role-based queries
