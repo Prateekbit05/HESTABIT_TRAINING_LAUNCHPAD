@@ -39,12 +39,10 @@ COPY scripts/ ./scripts/
 COPY models/ ./models/
 COPY .env.example .env.example
 
-# ── Create non-root user ──────────────────────────────────────────────────────
+# ── Create non-root user, dirs and ownership in a single RUN ─────────────────
 RUN groupadd --gid 1001 appgroup && \
-    useradd --uid 1001 --gid appgroup --no-create-home appuser
-
-# Create dirs and give ownership to appuser (not 777)
-RUN mkdir -p logs models/v1 && \
+    useradd --uid 1001 --gid appgroup --no-create-home appuser && \
+    mkdir -p logs models/v1 && \
     chown -R appuser:appgroup /app
 
 # Switch to non-root user
