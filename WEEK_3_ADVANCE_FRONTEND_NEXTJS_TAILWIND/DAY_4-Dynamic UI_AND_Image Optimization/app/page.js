@@ -157,3 +157,5 @@ export default function Home() {
     </div>
   );
 }
+
+// Landing page: responsive SaaS landing page with hero features testimonials and footer using next/image
