@@ -6,3 +6,5 @@ module.exports = async (job) => {
 
   return { success: true };
 };
+
+// Email processor: BullMQ worker process handling email job execution and logging
