@@ -127,3 +127,4 @@ if __name__ == "__main__":
         print(f"Confidence:     {chunk['confidence']}")
         print(f"Content:        {chunk['content']}")
         print()
+# Reranker: cross-encoder reranking with MMR deduplication for diverse high-precision results
