@@ -208,3 +208,4 @@ echo "✅ Deployment complete!"
 - **`.env` secrets:** Never hardcode credentials — `.env` is gitignored, `.env.example` documents required variables
 - **`docker compose -f`:** Specify a different compose file for prod vs dev — keeps configs clean and environment-specific
 - **Deployment script:** Wrapping compose commands in a script makes deployments one-command, repeatable, and CI/CD ready
+
