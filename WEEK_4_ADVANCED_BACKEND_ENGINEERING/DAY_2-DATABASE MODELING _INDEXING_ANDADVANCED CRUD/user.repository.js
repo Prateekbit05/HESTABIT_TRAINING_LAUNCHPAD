@@ -52,3 +52,4 @@ class UserRepository extends BaseRepository {
 }
 
 module.exports = new UserRepository();
+// User repository: CRUD operations with advanced query support and pagination
