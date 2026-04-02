@@ -96,3 +96,4 @@ DAY_3-JS_DOM_MANIPULATION/
     ├── counter(arrow_down).png
     └── counter_dropdown_and_keyevents.png
 ```
+
