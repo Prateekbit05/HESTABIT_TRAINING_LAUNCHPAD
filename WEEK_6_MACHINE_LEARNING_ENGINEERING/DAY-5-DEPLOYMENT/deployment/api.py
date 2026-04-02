@@ -470,3 +470,4 @@ if __name__ == "__main__":
         workers=cfg.WORKERS,
         log_level=cfg.LOG_LEVEL.lower(),
     )
+# ML API: FastAPI serving trained model predictions with input validation and logging
