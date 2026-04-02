@@ -224,3 +224,5 @@ if __name__ == "__main__":
     print(f"\n✅ Text → Image search returned {len(results)} results:")
     for r in results:
         print(f"   {r['rank']}. {r['image_name']} (score: {r['similarity_score']:.3f})")
+
+# Image search: multimodal retrieval supporting Text-to-Image Image-to-Image and Image-to-Text query modes
