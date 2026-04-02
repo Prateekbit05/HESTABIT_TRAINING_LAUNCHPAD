@@ -237,3 +237,5 @@ if __name__ == "__main__":
             print(f"✅ SQL: {result['sql']}")
         else:
             print(f"❌ Error: {result['error']}")
+
+# SQL generator: schema-aware LLM-based SQL generation with injection-safe parameterized queries
