@@ -279,3 +279,4 @@ if __name__ == "__main__":
         print(f"    {row}")
 
     tool.close()
+# DB agent tool: SQLite query tool for agents to run natural language to SQL operations on structured data
