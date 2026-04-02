@@ -118,3 +118,4 @@ export default function ProfilePage() {
     </div>
   );
 }
+// Profile page: Next.js user profile page with TailwindCSS card layout and nested routing
