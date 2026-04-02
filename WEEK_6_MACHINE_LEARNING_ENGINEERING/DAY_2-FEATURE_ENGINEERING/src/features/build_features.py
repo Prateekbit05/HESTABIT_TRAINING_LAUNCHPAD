@@ -689,3 +689,4 @@ if __name__ == "__main__":
         print(f"   - src/features/engineered_features.json")
     else:
         print("\n❌ Feature engineering failed!")
+# Feature builder: transforms raw data into ML-ready features with encoding and scaling
