@@ -124,6 +124,112 @@ The goal of this week is to transition from a "coder" to an **engineer**. You wi
 
 ## Completion Criteria
 * [ ] All deliverables submitted in the correct directory.
-* [ ] Commit history is clean, atomic, and meaningful.
-* [ ] Performance metrics are accurately documented in JSON/Markdown.
-* [ ] The **Engineering Mindset** (attention to detail, documentation) is evident throughout the repo.
+
+WEEK_1_FOLDER_STRUCTURE:-
+│
+├── .gitignore
+├── .gitmodules
+├── README.md
+│
+├── DAY_1-SYSTEM-REVERSAL-ENGG-NODE-TERMINAL/
+│   ├── introspect.js
+│   ├── buffer-read.js
+│   ├── stream-read.js
+│   ├── largefile.bin
+│   ├── system-report.md
+│   ├── logs/
+│   │   └── day1-perf.json
+│   └── SCREENSHOTS/
+│       ├── NVM_Install.png
+│       ├── Switch_Node_LTS.png
+│       ├── Node_Binary_Path.png
+│       ├── NPM_Global_Installation_Path.png
+│       ├── PATH_entries_with_node_npm.png
+│       ├── OS_Version.png
+│       ├── Current_Shell.png
+│       ├── Create_50MB_test_file.png
+│       ├── Run_Buffer_vs_Stream_benchmark.png
+│       ├── Run_introspect.js.png
+│       ├── Show_perf_log.png
+│       └── screenshot_via_terminal_(no GUI)_.png
+│
+├── DAY_2-NODE_CLI/
+│   ├── wordstat.js
+│   ├── corpus.txt
+│   ├── package.json
+│   ├── report.md
+│   ├── scripts/
+│   │   └── generateCorpus.js
+│   ├── workers/
+│   │   └── chunkWorker.js
+│   ├── output/
+│   │   └── stats.json
+│   └── logs/
+│       └── perf-summary.json
+│
+├── DAY_3-GIT_MASTERY/
+│   ├── app.js
+│   ├── bisect-session.txt
+│   ├── MERGE-POSTMORTEM.md
+│   ├── package.json
+│   ├── report.md
+│   └── README.md
+│
+├── DAY_3-GIT_MASTERY-HESTABIT/
+│
+├── DAY_4-HTTP_API_FORENSICS/
+│   ├── server.js
+│   ├── dns-traceroute.js
+│   ├── etag-caching.js
+│   ├── fetch-headers.js
+│   ├── fetch-products.js
+│   ├── curl-lab.txt
+│   ├── api-investigation.md
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── README.md
+│   └── SCREENSHOTS/
+│       ├── POSTMAN_COMMANDS_0101.png
+│       ├── POSTMAN_COMMANDS_0102.png
+│       ├── POSTMAN_COMMANDS_0103.png
+│       ├── POSTMAN_COMMANDS_0104.png
+│       ├── POSTMAN_COMMANDS_0105.png
+│       ├── POSTMAN_COMMANDS_0106.png
+│       ├── POSTMAN_COMMANDS_0107.png
+│       ├── POSTMAN_COMMANDS_0108.png
+│       └── POSTMAN_COMMANDS_0109.png
+│
+└── DAY_5-AUTOMATION-MINI-CI-PIPELINE/
+    ├── validate.sh
+    ├── package.json
+    ├── eslint.config.cjs
+    ├── eslint.config.mjs
+    ├── .prettierrc.json
+    ├── prettierrc.json
+    ├── README.md
+    ├── WEEK1-RETRO.md
+    ├── .husky/
+    │   └── pre-commit
+    ├── scripts/
+    │   ├── validate.sh
+    │   └── build.sh
+    ├── src/
+    │   └── index.js
+    ├── src_broken/
+    │   └── bad.js
+    ├── artifacts/
+    │   ├── build-20260113160231.tgz
+    │   ├── build-20260113160231.sha256
+    │   ├── build-20260113160255.tgz
+    │   ├── build-20260113160255.sha256
+    │   └── build-20260113165122.sha256
+    └── screenshot/
+        ├── husky_pre_commit.png
+        ├── husky_pre_commit_failure.png
+        ├── husky_pre_commits-check_passed.png
+        ├── lint_failure.png
+        ├── lint _success.png
+        ├── cron_running_service.png
+        ├── crontab_running.png
+        ├── artifacts_cron.png
+        └── verification_cron_job.png* 
